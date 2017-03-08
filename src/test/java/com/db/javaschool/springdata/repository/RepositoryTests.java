@@ -5,6 +5,7 @@ import com.db.javaschool.springdata.domain.Company;
 import com.db.javaschool.springdata.domain.Employee;
 import com.db.javaschool.springdata.jdbc.dao.JdbcEmployeeDao;
 import com.db.javaschool.springdata.jdbc.domain.EmployeeJdbc;
+import com.db.javaschool.springdata.repository.plainjpa.EmployeeJpaRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public class EmployeeRepositoryTest {
+public class RepositoryTests {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -26,6 +27,8 @@ public class EmployeeRepositoryTest {
     private JdbcEmployeeDao jdbcEmployeeDao;
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private EmployeeJpaRepo employeeJpaRepo;
 
     @Test
     public void test() {
@@ -55,6 +58,13 @@ public class EmployeeRepositoryTest {
     public void test3() {
         List<Company> companies = companyRepository.findAll();
         System.out.println(companies);
+    }
+
+    @Test
+    public void test4(){
+        Employee employee = employeeJpaRepo.getEmployeeByLastName("Petrescu");
+        System.out.println(employee);
+
     }
 
 }
