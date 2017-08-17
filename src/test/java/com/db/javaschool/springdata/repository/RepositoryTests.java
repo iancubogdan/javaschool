@@ -1,14 +1,17 @@
 package com.db.javaschool.springdata.repository;
 
 import com.db.javaschool.springdata.config.AppConfig;
+import com.db.javaschool.springdata.domain.Company;
 import com.db.javaschool.springdata.domain.Employee;
 import com.db.javaschool.springdata.jdbc.dao.JdbcEmployeeDao;
 import com.db.javaschool.springdata.jdbc.domain.EmployeeJdbc;
+import com.db.javaschool.springdata.repository.plainjpa.EmployeeJpaRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,12 +19,16 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public class EmployeeRepositoryTest {
+public class RepositoryTests {
 
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
     private JdbcEmployeeDao jdbcEmployeeDao;
+    @Autowired
+    private CompanyRepository companyRepository;
+    @Autowired
+    private EmployeeJpaRepo employeeJpaRepo;
 
     @Test
     public void test() {
@@ -44,6 +51,19 @@ public class EmployeeRepositoryTest {
 
         EmployeeJdbc employeeJdbc2 = jdbcEmployeeDao.findByFirstName("Alin");
         System.out.println(employeeJdbc2);
+
+    }
+
+    @Test
+    public void test3() {
+        List<Company> companies = companyRepository.findAll();
+        System.out.println(companies);
+    }
+
+    @Test
+    public void test4(){
+        Employee employee = employeeJpaRepo.getEmployeeByLastName("Petrescu");
+        System.out.println(employee);
 
     }
 
